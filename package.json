@@ -5,9 +5,11 @@
   "author": "Vincent legros",
   "license": "MIT",
   "scripts": {
+    "start": "node server/server.js",
     "build": "webpack --config webpack.prod.js",
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "test": "jest --config=jest.config.json --watchAll"
+    "dev-server": "webpack-dev-server --open --config webpack.dev.js",
+    "test": "jest --config=jest.config.json --watchAll",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -19,6 +21,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.4",
     "enzyme-to-json": "^3.5.0",
+    "express": "^4.17.1",
     "live-server": "^1.2.1",
     "moment": "^2.26.0",
     "node-sass": "^4.14.1",
