@@ -5,7 +5,9 @@ exports[`Should correctly render ExpensesSummary with 1 expense 1`] = `
   <h1>
     Viewing 
      
+    expenses
      totalling 
+    $0.00
   </h1>
 </div>
 `;
@@ -15,7 +17,9 @@ exports[`Should correctly render ExpenssesSummary with multiple expenses 1`] = `
   <h1>
     Viewing 
      
+    expenses
      totalling 
+    $0.00
   </h1>
 </div>
 `;
