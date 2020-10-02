@@ -6,8 +6,9 @@ import {
   removeExpense,
   setExpenses,
   startAddExpense,
-  startSetExpenses,
-  startRemoveExpense
+  startEditExpense,
+  startRemoveExpense,
+  startSetExpenses
 } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
@@ -40,6 +41,21 @@ test('should setup edit expense action object', () => {
       note: 'New note value'
     }
   });
+});
+
+test('should updates expense in firebase', async () => {
+  const id = expenses[2].id;
+  const updates = { description: 'updated', note: 'its run', amount: 10, createdAt: 5 };
+  const store = createMockStore({});
+  await store.dispatch(startEditExpense(id, updates));
+  const actions = store.getActions();
+  expect(actions[0]).toEqual({
+    type: 'EDIT_EXPENSE',
+    id,
+    updates
+  });
+  const snapshot = await database.ref(`expenses/${id}`).once('value');
+  expect(snapshot.val()).toEqual(updates);
 });
 
 test('should setup add expense action object with provided values', () => {
@@ -132,17 +148,3 @@ test('Should remove expense from firebase', async () => {
   const snapshot = await database.ref(`expenses/${id}`).once('value')
   expect(snapshot.exists()).toBeFalsy()
 });
-
-// test('should setup add expense action object with default values', () => {
-//   const action = addExpense();
-//   expect(action).toEqual({
-//     type: 'ADD_EXPENSE',
-//     expense: {
-//       id: expect.any(String),
-//       description: '',
-//       note: '',
-//       amount: 0,
-//       createdAt: 0
-//     }
-//   });
-// });
