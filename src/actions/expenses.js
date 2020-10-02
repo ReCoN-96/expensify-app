@@ -30,6 +30,17 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
+export const startRemoveExpense = ({ id } = {}) => {
+  return async (dispatch) => {
+    try {
+      await database.ref(`expenses/${id}`).remove()
+      dispatch(removeExpense({ id }))
+    } catch (e) {
+      return console.log(e);
+    };
+  };
+};
+
 // EDIT_EXPENSE
 
 export const editExpense = (id, updates) => ({
@@ -55,9 +66,10 @@ export const startSetExpenses = () => {
           ...childSnapshot.val()
         });
       });
-      dispatch(setExpenses(expenses))
+      dispatch(setExpenses(expenses));
     } catch (e) {
-      return e
-    }
-  }
-}
+      return console.log(e)
+    };
+  };
+};
+
