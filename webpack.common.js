@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'test') {
 
 
 module.exports = {
-  entry: './src/app.js',
+  entry: ['@babel/polyfill', './src/app.js'],
   plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [{
